@@ -142,6 +142,7 @@
       <button class="tablinks active" onclick="openTab(event, 'Inicio')">Inicio</button>
       <button class="tablinks" onclick="openTab(event, 'Test')">Haz el Test</button>
       <button class="tablinks" onclick="openTab(event, 'Recursos')">Recursos</button>
+      <button class="tablinks" onclick="openTab(event, 'TestTMBS')">Test: Gestión del Tiempo</button>
     </div>
 
     <!-- Inicio -->
@@ -227,6 +228,98 @@
           <button type="button" onclick="calcularResultados()">Ver Resultados</button>
         </form>
 
+        <div id="TestTMBS" class="tabcontent">
+          <section>
+            <h2>⏰ Test: ¿Cómo Gestionas tu Tiempo?</h2>
+            <p>Responde con honestidad (1 = Nunca, 5 = Siempre):</p>
+            <form id="tmbs-form">
+              <div class="question">
+                <p>1. Hago una lista de tareas pendientes antes de empezar a estudiar.</p>
+                <select name="planificacion">
+                  <option value="">Selecciona...</option>
+                  <option value="1">1 - Nunca</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 - Siempre</option>
+                </select>
+              </div>
+        
+              <div class="question">
+                <p>2. Priorizo mis tareas según su importancia y urgencia.</p>
+                <select name="priorizacion">
+                  <option value="">Selecciona...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+        
+              <div class="question">
+                <p>3. Evito distracciones (celular, redes) cuando estudio.</p>
+                <select name="enfoque">
+                  <option value="">Selecciona...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+        
+              <div class="question">
+                <p>4. Reviso mi progreso semanal y ajusto mis planes.</p>
+                <select name="revision">
+                  <option value="">Selecciona...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+        
+              <div class="question">
+                <p>5. Comienzo a prepararme para los exámenes con varias semanas de anticipación.</p>
+                <select name="anticipacion">
+                  <option value="">Selecciona...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+        
+              <div class="question">
+                <p>6. Suelo terminar las tareas antes de la fecha de entrega.</p>
+                <select name="adelanto">
+                  <option value="">Selecciona...</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+        
+              <button type="button" onclick="calcularTMBS()">Ver Resultados</button>
+            </form>
+        
+            <div id="results-tmbs" style="display: none; margin-top: 1.5rem; padding: 1rem; background-color: #e8f4ff; border-radius: 8px;">
+              <h3>Tus Resultados de Gestión del Tiempo</h3>
+              <p><strong>Puntaje total:</strong> <span id="score-tmbs" class="score-box"></span>/30</p>
+              <p><strong>Nivel:</strong> <span id="nivel-tmbs"></span></p>
+              <div id="recomendaciones-tmbs">
+                <h3>🎯 Recomendaciones:</h3>
+                <ul id="lista-rec-tmbs"></ul>
+              </div>
+            </div>
+          </section>
+        </div>
+        
         <div id="results">
           <h3>Tus Resultados</h3>
           <p><strong>Autoeficacia:</strong> <span id="score-autoeficacia" class="score-box"></span></p>
