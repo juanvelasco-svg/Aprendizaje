@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guía Estudiante Universitario</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    section {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      color: #4e54c8;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    a {
+      color: #4e54c8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .form-group {
+      margin: 1rem 0;
+    }
+    input, button, select {
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #4e54c8;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #3a40a0;
+    }
+    .question {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background-color: #f1f3f5;
+      border-radius: 8px;
+    }
+    #results, #recommendations, #results-tmbs {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #e8f4ff;
+      border-radius: 8px;
+      display: none;
+    }
+    .score-box {
+      font-weight: bold;
+      color: #4e54c8;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      border-radius: 8px 8px 0 0;
+    }
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 16px;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #4e54c8;
+      color: white;
+    }
+    .tabcontent {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚀 Tu Guía Universitaria</h1>
+    <p>Conoce tu estilo de aprendizaje y domina tu tiempo</p>
+  </header>
+
+  <main>
+    <!-- Pestañas -->
+    <div class="tab">
+      <button class="tablinks active" onclick="openTab(event, 'Inicio')">Inicio</button>
+      <button class="tablinks" onclick="openTab(event, 'Test')">Test: Aprendizaje</button>
+      <button class="tablinks" onclick="openTab(event, 'TestTMBS')">Test: Gestión del Tiempo</button>
+      <button class="tablinks" onclick="openTab(event, 'Recursos')">Recursos</button>
+    </div>
+
+    <!-- Inicio -->
+    <div id="Inicio" class="tabcontent" style="display: block;">
+      <section>
+        <h2>¿Qué es esto?</h2>
+        <p>Si estás en tu primer año de universidad, este sitio te ayuda a entender cómo aprendes y cómo gestionas tu tiempo, usando herramientas científicas validadas:</p>
+        <ul>
+          <li><strong>MSLQ</strong>: Mide tu motivación y estrategias de estudio.</li>
+          <li><strong>TMBS</strong>: Evalúa cómo manejas tu tiempo.</li>
+        </ul>
+        <p>¡Descubre tus fortalezas y mejora lo que necesitas!</p>
+        <button onclick="openTab(event, 'Test')">▶️ Haz el test de aprendizaje</button>
+        <button onclick="openTab(event, 'TestTMBS')">⏰ Haz el test de gestión del tiempo</button>
+      </section>
+    </div>
+
+    <!-- Test MSLQ Corto -->
+    <div id="Test" class="tabcontent">
+      <section>
+        <h2>📝 Test: ¿Cómo Aprendes?</h2>
+        <p>Responde con honestidad (1 = Totalmente en desacuerdo, 5 = Totalmente de acuerdo):</p>
+        <form id="mslq-form">
+          <div class="question">
+            <p>1. Creo que puedo aprender bien esta materia, aunque sea difícil.</p>
+            <select name="autoeficacia">
+              <option value="">Selecciona...</option>
+              <option value="1">1 - Totalmente en desacuerdo</option>
+              <option value="2">2 - En desacuerdo</option>
+              <option value="3">3 - Ni de acuerdo ni en desacuerdo</option>
+              <option value="4">4 - De acuerdo</option>
+              <option value="5">5 - Totalmente de acuerdo</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>2. Planeo con anticipación cómo estudiaré para los exámenes.</p>
+            <select name="gestion_tiempo">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>3. Me siento nervioso/a antes de un examen, incluso si estoy preparado/a.</p>
+            <select name="ansiedad">
+              <option value="">Selecciona...</option>
+              <option value="5">1 - Nunca</option>
+              <option value="4">2</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">5 - Siempre</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>4. Me interesa aprender lo que se enseña en esta materia.</p>
+            <select name="motivacion">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>5. Si no entiendo algo, lo repaso hasta que lo comprendo.</p>
+            <select name="autorregulacion">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <button type="button" onclick="calcularResultados()">Ver Resultados</button>
+        </form>
+
+        <div id="results">
+          <h3>Tus Resultados</h3>
+          <p><strong>Autoeficacia:</strong> <span id="score-autoeficacia" class="score-box"></span></p>
+          <p><strong>Gestión del tiempo:</strong> <span id="score-gestion_tiempo" class="score-box"></span></p>
+          <p><strong>Ansiedad:</strong> <span id="score-ansiedad" class="score-box"></span></p>
+          <p><strong>Motivación:</strong> <span id="score-motivacion" class="score-box"></span></p>
+          <p><strong>Autorregulación:</strong> <span id="score-autorregulacion" class="score-box"></span></p>
+
+          <div id="recomendaciones-test" class="mt-3">
+            <h3>🎯 Recomendaciones para ti:</h3>
+            <ul id="lista-rec-test"></ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Test TMBS -->
+    <div id="TestTMBS" class="tabcontent">
+      <section>
+        <h2>⏰ Test: ¿Cómo Gestionas tu Tiempo?</h2>
+        <p>Responde con honestidad (1 = Nunca, 5 = Siempre):</p>
+        <form id="tmbs-form">
+          <div class="question">
+            <p>1. Hago una lista de tareas pendientes antes de empezar a estudiar.</p>
+            <select name="planificacion">
+              <option value="">Selecciona...</option>
+              <option value="1">1 - Nunca</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 - Siempre</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>2. Priorizo mis tareas según su importancia y urgencia.</p>
+            <select name="priorizacion">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>3. Evito distracciones (celular, redes) cuando estudio.</p>
+            <select name="enfoque">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>4. Reviso mi progreso semanal y ajusto mis planes.</p>
+            <select name="revision">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>5. Comienzo a prepararme para los exámenes con varias semanas de anticipación.</p>
+            <select name="anticipacion">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="question">
+            <p>6. Suelo terminar las tareas antes de la fecha de entrega.</p>
+            <select name="adelanto">
+              <option value="">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <button type="button" onclick="calcularTMBS()">Ver Resultados</button>
+        </form>
+
+        <div id="results-tmbs">
+          <h3>Tus Resultados de Gestión del Tiempo</h3>
+          <p><strong>Puntaje total:</strong> <span id="score-tmbs" class="score-box"></span>/30</p>
+          <p><strong>Nivel:</strong> <span id="nivel-tmbs"></span></p>
+          <div id="recomendaciones-tmbs">
+            <h3>🎯 Recomendaciones:</h3>
+            <ul id="lista-rec-tmbs"></ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Recursos -->
+    <div id="Recursos" class="tabcontent">
+      <section>
+        <h2>🎥 Videos para Empezar</h2>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=KerTQkH9vOg" target="_blank">"Estudia Menos, Estudia Mejor" – Dr. Marty Lobdell (50 min)</a></li>
+          <li><a href="https://www.youtube.com/watch?v=5uF2Fh3k2pE" target="_blank">"Cómo planificar tu tiempo como universitario" – Guillermo Cuevas</a></li>
+          <li><a href="https://www.youtube.com/watch?v=6Z9qQ8rZq0E" target="_blank">"Cómo dejar de procrastinar" – Matías Freuden</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>📱 Apps que Te Salvan</h2>
+        <ul>
+          <li><a href="https://forestapp.cc/" target="_blank">Forest – No procrastines</a></li>
+          <li><a href="https://todoist.com/" target="_blank">Todoist – Organiza tus tareas</a></li>
+          <li><a href="https://www.notion.so/" target="_blank">Notion – Tus apuntes y proyectos</a></li>
+          <li><a href="https://www.google.com/calendar" target="_blank">Google Calendar – Planifica tu semana</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>📥 Plantillas Gratuitas</h2>
+        <ul>
+          <li><a href="https://www.studyskills.com/downloads/weekly-planner" target="_blank">📅 Planificador Semanal (PDF)</a></li>
+          <li><a href="https://www.unir.net/wp-content/uploads/2021/05/Guia-estudiantes-exitosos.pdf" target="_blank">📘 Guía para Estudiantes Exitosos (UNIR)</a></li>
+          <li><a href="https://cft.vanderbilt.edu/guides-teaching/teaching-guides/learning-motivation/" target="_blank">🧠 Estrategias de Motivación (Vanderbilt)</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>🔍 Tu Diagnóstico → Tus Recursos</h2>
+        <p>Ingresa una palabra clave sobre tu mayor desafío:</p>
+        <div class="form-group">
+          <input type="text" id="diagnostico" placeholder="Ej: ansiedad, procrastino, desorganizado..." />
+        </div>
+        <button onclick="mostrarRecomendaciones()">Obtener Recursos</button>
+
+        <div id="recommendations">
+          <h3>🎯 Recursos para ti:</h3>
+          <ul id="lista-recursos"></ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Hecho para estudiantes universitarios con ciencia y corazón 💙<br>
+    Usa tus fortalezas. Mejora tu ritmo. No estás solo.</p>
+  </footer>
+
+  <script>
+    // Cambiar entre pestañas
+    function openTab(evt, tabName) {
+      const tabs = document.getElementsByClassName("tabcontent");
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].style.display = "none";
+      }
+      const tablinks = document.getElementsByClassName("tablinks");
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Calcular resultados del test MSLQ
+    function calcularResultados() {
+      const form = document.getElementById("mslq-form");
+      const data = new FormData(form);
+
+      let scores = {
+        autoeficacia: 0,
+        gestion_tiempo: 0,
+        ansiedad: 0,
+        motivacion: 0,
+        autorregulacion: 0
+      };
+
+      let counts = { ...scores };
+
+      for (let [key, value] of data) {
+        if (value) {
+          scores[key] += parseInt(value);
+          counts[key] += 1;
+        }
+      }
+
+      // Promedios
+      for (let key in scores) {
+        if (counts[key] > 0) {
+          scores[key] = (scores[key] / counts[key]).toFixed(1);
+        }
+      }
+
+      // Mostrar resultados
+      document.getElementById("score-autoeficacia").textContent = scores.autoeficacia;
+      document.getElementById("score-gestion_tiempo").textContent = scores.gestion_tiempo;
+      document.getElementById("score-ansiedad").textContent = scores.ansiedad;
+      document.getElementById("score-motivacion").textContent = scores.motivacion;
+      document.getElementById("score-autorregulacion").textContent = scores.autorregulacion;
+
+      // Recomendaciones según la dimensión más baja
+      const minArea = Object.keys(scores).reduce((a, b) => scores[a] < scores[b] ? a : b);
+      const lista = document.getElementById("lista-rec-test");
+      lista.innerHTML = "";
+
+      const recursos = {
+        autoeficacia: [
+          "🎥 <a href='https://www.youtube.com/watch?v=WSLXek6jBVo' target='_blank'>Cómo creer en ti – Ali Abdaal</a>",
+          "📱 <a href='https://habitica.com/' target='_blank'>Habitica – Convierte tus tareas en un juego</a>"
+        ],
+        gestion_tiempo: [
+          "📅 <a href='https://www.google.com/calendar' target='_blank'>Google Calendar – Planifica tu semana</a>",
+          "📱 <a href='https://forestapp.cc/' target='_blank'>Forest – Evita distracciones</a>"
+        ],
+        ansiedad: [
+          "🧘 <a href='https://www.headspace.com/' target='_blank'>Headspace – Meditación gratis 1 mes</a>",
+          "📘 <a href='https://www.unir.net/wp-content/uploads/2021/05/Guia-estudiantes-exitosos.pdf' target='_blank'>Guía de manejo del estrés (UNIR)</a>"
+        ],
+        motivacion: [
+          "🎥 <a href='https://www.youtube.com/watch?v=KerTQkH9vOg' target='_blank'>Estudia menos, estudia mejor – Dr. Marty Lobdell</a>"
+        ],
+        autorregulacion: [
+          "🧠 <a href='https://www.notion.so/' target='_blank'>Notion – Organiza tus apuntes y metas</a>",
+          "📥 <a href='https://cft.vanderbilt.edu/guides-teaching/teaching-guides/learning-motivation/' target='_blank'>Estrategias de aprendizaje activo</a>"
+        ]
+      };
+
+      if (recursos[minArea]) {
+        recursos[minArea].forEach(rec => {
+          const li = document.createElement("li");
+          li.innerHTML = rec;
+          lista.appendChild(li);
+        });
+      }
+
+      document.getElementById("results").style.display = "block";
+    }
+
+    // Calcular resultados del test TMBS
+    function calcularTMBS() {
+      const form = document.getElementById("tmbs-form");
+      const data = new FormData(form);
+
+      let total = 0;
+      for (let [key, value] of data) {
+        if (value) {
+          total += parseInt(value);
+        }
+      }
+
+      const maxScore = 30; // 6 preguntas * 5
+      const score = total;
+      const percentage = (score / maxScore) * 100;
+      let nivel, recomendaciones;
+
+      if (percentage >= 80) {
+        nivel = "Alto ✅";
+        recomendaciones = [
+          "🎉 ¡Excelente gestión del tiempo! Sigue así y considera ayudar a otros compañeros.",
+          "📅 Usa <a href='https://www.notion.so/' target='_blank'>Notion</a> para optimizar aún más tus planes."
+        ];
+      } else if (percentage >= 50) {
+        nivel = "Medio ⚠️";
+        recomendaciones = [
+          "📅 Usa <a href='https://www.google.com/calendar' target='_blank'>Google Calendar</a> para planificar tus semanas.",
+          "📱 Activa <a href='https://forestapp.cc/' target='_blank'>Forest</a> para evitar distracciones durante 25 minutos.",
+          "📥 Descarga el <a href='https://www.studyskills.com/downloads/weekly-planner' target='_blank'>Planificador Semanal</a> y úsalo cada domingo."
+        ];
+      } else {
+        nivel = "Bajo ❌";
+        recomendaciones = [
+          "🎥 Mira: <a href='https://www.youtube.com/watch?v=5uF2Fh3k2pE' target='_blank'>Cómo planificar tu tiempo como universitario</a>",
+          "📱 Empieza con <a href='https://todoist.com/' target='_blank'>Todoist</a> para organizar tus tareas diarias.",
+          "📘 Lee la <a href='https://www.unir.net/wp-content/uploads/2021/05/Guia-estudiantes-exitosos.pdf' target='_blank'>Guía de estudiantes exitosos (UNIR)</a>."
+        ];
+      }
+
+      document.getElementById("score-tmbs").textContent = score;
+      document.getElementById("nivel-tmbs").textContent = nivel;
+
+      const lista = document.getElementById("lista-rec-tmbs");
+      lista.innerHTML = "";
+      recomendaciones.forEach(rec => {
+        const li = document.createElement("li");
+        li.innerHTML = rec;
+        lista.appendChild(li);
+      });
+
+      document.getElementById("results-tmbs").style.display = "block";
+    }
+
+    // Recomendaciones por diagnóstico manual
+    function mostrarRecomendaciones() {
+      const input = document.getElementById("diagnostico").value.toLowerCase();
+      const lista = document.getElementById("lista-recursos");
+      const divRec = document.getElementById("recommendations");
+      lista.innerHTML = "";
+
+      const recursos = {
+        procrastino: [
+          "🎥 <a href='https://www.youtube.com/watch?v=6Z9qQ8rZq0E' target='_blank'>Cómo dejar de procrastinar – Matías Freuden</a>",
+          "📱 <a href='https://forestapp.cc/' target='_blank'>Forest – Enfócate sin distracciones</a>"
+        ],
+        ansiedad: [
+          "🧘 <a href='https://www.headspace.com/' target='_blank'>Headspace – Meditación guiada</a>",
+          "📘 <a href='https://www.unir.net/wp-content/uploads/2021/05/Guia-estudiantes-exitosos.pdf' target='_blank'>Guía de manejo del estrés (UNIR)</a>"
+        ],
+        desorganizado: [
+          "📅 <a href='https://www.studyskills.com/downloads/weekly-planner' target='_blank'>Planificador semanal (PDF)</a>",
+          "📱 <a href='https://todoist.com/' target='_blank'>Todoist – Organiza tus tareas</a>"
+        ],
+        motivacion: [
+          "🎥 <a href='https://www.youtube.com/watch?v=KerTQkH9vOg' target='_blank'>Estudia menos, estudia mejor – Dr. Marty Lobdell</a>"
+        ],
+        tiempo: [
+          "📅 <a href='https://www.google.com/calendar' target='_blank'>Google Calendar – Planifica tu semana</a>",
+          "📱 <a href='https://forestapp.cc/' target='_blank'>Forest – Evita el celular</a>"
+        ]
+      };
+
+      let encontrados = false;
+      for (const [clave, listaRecursos] of Object.entries(recursos)) {
+        if (input.includes(clave)) {
+          listaRecursos.forEach(recurso => {
+            const li = document.createElement("li");
+            li.innerHTML = recurso;
+            lista.appendChild(li);
+          });
+          encontrados = true;
+        }
+      }
+
+      if (!encontrados) {
+        const li = document.createElement("li");
+        li.textContent = "Prueba con: procrastino, ansiedad, desorganizado, motivacion, tiempo.";
+        lista.appendChild(li);
+      }
+
+      divRec.style.display = "block";
+    }
+  </script>
+</body>
+</html>
