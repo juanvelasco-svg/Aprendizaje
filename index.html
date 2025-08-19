@@ -374,6 +374,62 @@
         </div>
         <button onclick="mostrarRecomendaciones()">Obtener Recursos</button>
 
+        // Calcular resultados del test TMBS
+function calcularTMBS() {
+  const form = document.getElementById("tmbs-form");
+  const data = new FormData(form);
+
+  let total = 0;
+  let count = 0;
+
+  for (let [key, value] of data) {
+    if (value) {
+      total += parseInt(value);
+      count++;
+    }
+  }
+
+  const maxScore = 30; // 6 preguntas * 5
+  const score = total;
+  const percentage = (score / maxScore) * 100;
+
+  let nivel, recomendaciones;
+
+  if (percentage >= 80) {
+    nivel = "Alto ✅";
+    recomendaciones = [
+      "🎉 ¡Excelente gestión del tiempo! Sigue así y considera ayudar a otros compañeros.",
+      "📅 Usa <a href='https://www.notion.so/' target='_blank'>Notion</a> para optimizar aún más tus planes."
+    ];
+  } else if (percentage >= 50) {
+    nivel = "Medio ⚠️";
+    recomendaciones = [
+      "📅 Usa <a href='https://www.google.com/calendar' target='_blank'>Google Calendar</a> para planificar tus semanas.",
+      "📱 Activa <a href='https://forestapp.cc/' target='_blank'>Forest</a> para evitar distracciones durante 25 minutos.",
+      "📥 Descarga el <a href='https://www.studyskills.com/downloads/weekly-planner' target='_blank'>Planificador Semanal</a> y úsalo cada domingo."
+    ];
+  } else {
+    nivel = "Bajo ❌";
+    recomendaciones = [
+      "🎥 Mira: <a href='https://www.youtube.com/watch?v=5uF2Fh3k2pE' target='_blank'>Cómo planificar tu tiempo como universitario</a>",
+      "📱 Empieza con <a href='https://todoist.com/' target='_blank'>Todoist</a> para organizar tus tareas diarias.",
+      "📘 Lee la <a href='https://www.unir.net/wp-content/uploads/2021/05/Guia-estudiantes-exitosos.pdf' target='_blank'>Guía de estudiantes exitosos (UNIR)</a>."
+    ];
+  }
+
+  document.getElementById("score-tmbs").textContent = score;
+  document.getElementById("nivel-tmbs").textContent = nivel;
+
+  const lista = document.getElementById("lista-rec-tmbs");
+  lista.innerHTML = "";
+  recomendaciones.forEach(rec => {
+    const li = document.createElement("li");
+    li.innerHTML = rec;
+    lista.appendChild(li);
+  });
+
+  document.getElementById("results-tmbs").style.display = "block";
+}
         <div id="recommendations">
           <h3>🎯 Recursos para ti:</h3>
           <ul id="lista-recursos"></ul>
